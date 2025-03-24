@@ -143,6 +143,10 @@
                                     "bank_card_name": {
                                         "type": "string",
                                         "example": "My New bank Card"
+                                    },
+                                    "account_id": {
+                                        "type": "string",
+                                        "example": "1"
                                     }
                                 },
                                 "type": "object"

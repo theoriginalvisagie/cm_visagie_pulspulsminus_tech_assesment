@@ -164,7 +164,8 @@ class BankCardsController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *             required={"bank_card_name"},
-     *             @OA\Property(property="bank_card_name", type="string", example="My New bank Card")
+     *             @OA\Property(property="bank_card_name", type="string", example="My New bank Card"),
+     *             @OA\Property(property="account_id", type="string", example="1")
      *         )
      *     ),
      *     @OA\Response(
@@ -196,6 +197,7 @@ class BankCardsController extends Controller
         $cardName = $request->get('bank_card_name');
         $cardTypeSlug = $this->getCardTypeSlug();
         $cardTypeID = BankCardTypes::where('slug', $cardTypeSlug)->first()->id;
+        $account_id = $request->get('account_id');
 
         $cardDetails = $this->createCardDetails();
 
@@ -210,6 +212,7 @@ class BankCardsController extends Controller
             'expiry_date' => $expiryDate,
             'bank_card_type_id' => $cardTypeID,
             'bank_card_name' => $cardName,
+            'bank_account_id' => $account_id,
         ]);
 
         if($newCard){
