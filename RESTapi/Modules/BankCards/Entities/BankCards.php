@@ -5,6 +5,7 @@ namespace Modules\BankCards\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\BankAccounts\Entities\BankAccount;
 use Modules\Users\Entities\Users;
 
 // use Modules\BankCards\Database\Factories\BankCardsFactory;
@@ -24,7 +25,8 @@ class BankCards extends Model
         'bank_card_number',
         'cvv',
         'expiry_date',
-        'bank_card_name'
+        'bank_card_name',
+        'bank_account_id'
     ];
 
     public function bankCardType(){
@@ -33,6 +35,9 @@ class BankCards extends Model
 
     public function user(){
         return $this->belongsTo(Users::class, 'user_id');
+    }
 
+    public function bankAccount(){
+        return $this->belongsTo(BankAccount::class, 'bank_account_id');
     }
 }
