@@ -4,9 +4,55 @@ namespace Modules\BankAccounts\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Modules\BankAccounts\Entities\BankAccount;
 
 class BankAccountsController extends Controller
 {
+
+    public function getAllUserBankAccounts(Request $request){
+        $user = $request->user();
+        $userId = $user->id;
+        $userName = "{$user->name} {$user->surname}";
+
+        $bankAccounts = BankAccount::where('user_id',$userId)->get();
+
+        if($bankAccounts->count() > 0){
+            return response([
+                "status"=> 201,
+                "message"=>"success",
+                "data"=>$bankAccounts
+            ]);
+        }else{
+            return response([
+                "status"=> 201,
+                "message"=>"success",
+                "data"=>"No accounts Found for user {$userName}"
+            ]);
+        }
+    }
+
+    public function getBankAccountWithId(Request $request, $id){
+        $user = $request->user();
+        $userId = $user->id;
+        $userName = "{$user->name} {$user->surname}";
+
+        $bankAccounts = BankAccount::where('user_id',$userId)->where('id', $id)->get();
+
+        if($bankAccounts->count() > 0){
+            return response([
+                "status"=> 201,
+                "message"=>"success",
+                "data"=>$bankAccounts
+            ]);
+        }else{
+            return response([
+                "status"=> 201,
+                "message"=>"success",
+                "data"=>"No account Found for user {$userName}"
+            ]);
+        }
+    }
+
     /**
      * Display a listing of the resource.
      */
