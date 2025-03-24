@@ -2,13 +2,14 @@
 
 namespace Modules\Users\Entities;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
 
 class Users extends Model
 {
-    use SoftDeletes, HasApiTokens;
+    use SoftDeletes, HasApiTokens, HasFactory;
     /**
      * The attributes that are mass assignable.
      */
