@@ -9,7 +9,6 @@ use Tests\TestCase;
 
 class UserRegistrationTest extends TestCase
 {
-    use RefreshDatabase;
 
     /** @test */
     public function user_can_register_successfully()

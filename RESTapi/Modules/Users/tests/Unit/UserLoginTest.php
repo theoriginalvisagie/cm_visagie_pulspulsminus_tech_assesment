@@ -7,7 +7,6 @@ use Tests\TestCase;
 
 class UserLoginTest extends TestCase
 {
-    use RefreshDatabase;
 
     /** @test */
     public function user_can_login_with_valid_credentials()
