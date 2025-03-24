@@ -48,6 +48,7 @@ return [
                     base_path('Modules/BankCards/Http/Controllers'),
                     base_path('Modules/Users/Http/Controllers'),
                     base_path('Modules/BankAccounts/Http/Controllers'),
+                    base_path('Modules/BankAccountTransactions/Http/Controllers'),
                 ],
             ],
         ],

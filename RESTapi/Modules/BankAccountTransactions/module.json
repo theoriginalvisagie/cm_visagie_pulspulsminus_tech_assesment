@@ -1,0 +1,11 @@
+{
+    "name": "BankAccountTransactions",
+    "alias": "bankaccounttransactions",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\BankAccountTransactions\\Providers\\BankAccountTransactionsServiceProvider"
+    ],
+    "files": []
+}
