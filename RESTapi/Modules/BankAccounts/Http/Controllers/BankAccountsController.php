@@ -53,6 +53,30 @@ class BankAccountsController extends Controller
         }
     }
 
+    public function createNewUserBankAccount(Request $request){
+        $user = $request->user();
+        $userId = $user->id;
+        $userName = "{$user->name} {$user->surname}";
+
+        $newAccount = BankAccount::create([
+            'user_id' => $userId,
+            'name' => $request->account_name,
+            'account_balance' => 100000.00
+        ]);
+
+        if($newAccount){
+            return response()->json([
+                "status" => 201,
+                "message" => "{$request->account_name} successfully created for {$userName}",
+            ]);
+        }else{
+            return response()->json([
+                "status" => 501,
+                "message" => "{$request->account_name} could not be created for {$userName}",
+            ]);
+        }
+    }
+
     /**
      * Display a listing of the resource.
      */
