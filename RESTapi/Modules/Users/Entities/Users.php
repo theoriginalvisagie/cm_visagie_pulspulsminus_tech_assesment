@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 class Users extends Model
 {
     use SoftDeletes, HasApiTokens, HasFactory;
+    protected $table = 'users';
     /**
      * The attributes that are mass assignable.
      */
