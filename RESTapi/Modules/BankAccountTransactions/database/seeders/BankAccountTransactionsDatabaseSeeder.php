@@ -11,6 +11,6 @@ class BankAccountTransactionsDatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // $this->call([]);
+       $this->call(TransactionsTypeSeeder::class);
     }
 }
