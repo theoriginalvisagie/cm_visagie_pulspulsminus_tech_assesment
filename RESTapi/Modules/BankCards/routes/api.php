@@ -13,10 +13,12 @@ Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
     // POST REQUESTS
     // Creates a new debit card
     Route::post('debit-cards', [BankCardsController::class, 'createNewCard'])->name('bankcards.createNewCard');
-//
-//    // PUT REQUESTS
-//    Route::put('debit-cards/{id}', BankCardsController::class)->name('bankcards');
+
+    // PUT REQUESTS
+    // Update an existing debit card.
+    Route::put('debit-cards/{id}', [BankCardsController::class, 'updateBankCard'])->name('bankcards.updateBankCard');
 //
 //    // DELETE REQUESTS
+      // Delete a debit card.
 //    Route::delete('debit-cards/{id}', BankCardsController::class)->name('bankcards');
 });

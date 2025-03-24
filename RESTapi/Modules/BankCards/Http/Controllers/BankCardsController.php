@@ -72,7 +72,6 @@ class BankCardsController extends Controller
         $userId = $user->id;
         $cardName = $request->get('bank_card_name');
         $cardTypeSlug = $this->getCardTypeSlug();
-
         $cardTypeID = BankCardTypes::where('slug', $cardTypeSlug)->first()->id;
 
         $cardDetails = $this->createCardDetails();
@@ -148,6 +147,34 @@ class BankCardsController extends Controller
         }
 
         return substr($cardTypeSlug, -1) === 's' ? substr($cardTypeSlug, 0, -1) : $cardTypeSlug;
+    }
+
+    public function updateBankCard(Request $request, $id){
+        $user = $request->user();
+
+        $request->validate([
+            'bank_card_name' => 'required|string|max:255',
+        ]);
+
+        $newCardName = $request->get('bank_card_name');
+
+        $bankCard = BankCards::where('id', $id)
+            ->where('user_id', $user->id)
+            ->first();
+
+        if (!$bankCard) {
+            return response()->json([
+                'message' => 'Bank card not found or access denied.',
+            ], 404);
+        }
+
+        $bankCard->bank_card_name = $newCardName;
+        $bankCard->save();
+
+        return response()->json([
+            'message' => 'Bank card updated successfully.',
+            'card' => $bankCard,
+        ], 200);
     }
     /**
      * Display a listing of the resource.
