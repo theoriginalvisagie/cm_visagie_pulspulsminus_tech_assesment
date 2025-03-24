@@ -17,6 +17,4 @@ class TransactionTypes extends Model
         'name',
         'slug',
     ];
-
-
 }

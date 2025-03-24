@@ -33,7 +33,7 @@ class BankAccountTransaction extends Model
     }
 
     public function bankCard(){
-        return $this->belongsTo(BankCards::class);
+        return $this->belongsTo(BankCards::class)->withTrashed();
     }
 
     public function user(){
@@ -43,6 +43,5 @@ class BankAccountTransaction extends Model
     public function transactionType(){
         return $this->belongsTo(TransactionTypes::class, 'transaction_type_id');
     }
-
 }
 

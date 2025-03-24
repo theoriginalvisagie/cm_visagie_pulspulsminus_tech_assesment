@@ -8,9 +8,11 @@ There are two folders:
 
 The Docker yaml is contained in `docker-compose.yml`.
 
-Laravel has been configure to work with modules using Nwidart.
+Laravel has been configured to work with modules using Nwidart.
 
 All Modules are contained in `RESTapi/Modules`:
+- BankAccounts
+- BankAccountTransactions
 - BankCards
 - Users
 
@@ -38,7 +40,7 @@ It is important to not that `DB_HOST=db` needs to be `db`
 
 You will need to enter the container via the terminal to run the migrations.
 
-You can run the follwoing command to list all the containers:
+You can run the following command to list all the containers:
 ```bash
 docker ps
 ```
@@ -65,6 +67,11 @@ php artisan db:seed --class="Modules\BankCards\database\seeders\BankCardTypesSee
 php artisan db:seed --class="Modules\BankCards\database\seeders\BankCardTypesSeeder"
 ```
 
+## Transaction Types
+```bash
+php artisan db:seed --class="Modules\BankAccountTransactions\database\seeders\TransactionsTypeSeeder"
+```
+
 # Unit Tests
 ## Users:
 ```bash
@@ -89,3 +96,11 @@ php artisan test Modules/BankCards/tests/Unit/DeleteBankCard.php
 - Add "Are you sure" to delete method for bank cards.
 - Add 30/60 day period before card gets deleted permanent
 - Restrict access via browsers
+- Add account number to bank accounts table
+- add methods to add funds to bank accounts
+- Add check to bank cards that it belongs to a bank account
+- Add currency to bank accounts
+- Add Validation for when creating a new bank account
+- Add check to see if card being used for transaction is valid
+- Add location details to transaction types
+- Add routes for transactions for specific cards and accounts
