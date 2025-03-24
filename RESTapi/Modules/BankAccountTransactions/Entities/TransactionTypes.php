@@ -8,9 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TransactionTypes extends Model
 {
-
-    use SoftDeletes;
-
     protected $table = 'transaction_types';
     /**
      * The attributes that are mass assignable.
