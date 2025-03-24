@@ -4,19 +4,27 @@ namespace Modules\BankAccounts\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Users\Entities\Users;
+
 // use Modules\BankAccounts\Database\Factories\BankAccountFactory;
 
 class BankAccount extends Model
 {
-    use HasFactory;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'id',
+        'user_id',
+        'name',
+        'account_balance',
+    ];
 
-    // protected static function newFactory(): BankAccountFactory
-    // {
-    //     // return BankAccountFactory::new();
-    // }
+    public function user(){
+        return $this->belongsTo(Users::class, 'user_id');
+    }
+
 }
