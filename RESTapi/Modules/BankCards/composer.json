@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/bankcards",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\BankCards\\": "-",
+            "Modules\\BankCards\\Database\\Factories\\": "database/factories/",
+            "Modules\\BankCards\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\BankCards\\Tests\\": "tests/"
+        }
+    }
+}
