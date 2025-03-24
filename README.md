@@ -2,9 +2,10 @@
 ## Christiaan Visagie | visagiechristiaan40@gmail.com
 
 # Folder Structure:
-There are two folders:
+There are three folders:
 - RESTapi: Contains the code for the api.
 - Docker: Contains files for docker container.
+- Postman Collection: Contains all the endpoints for postman.
 
 The Docker yaml is contained in `docker-compose.yml`.
 
