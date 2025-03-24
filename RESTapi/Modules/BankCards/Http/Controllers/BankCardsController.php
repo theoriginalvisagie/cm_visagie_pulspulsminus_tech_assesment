@@ -38,7 +38,32 @@ class BankCardsController extends Controller
     }
 
     public function getUserCardWithId(Request $request){
+        $user = $request->user();
+        $userId = $user->id;
+        $userName = "{$user->name} {$user->surname}";
 
+        $cardTypeSlug = $this->getCardTypeSlug();
+        $cardTypeID = BankCardTypes::where('slug', $cardTypeSlug)->first()->id;
+
+        $bankCard = BankCards::with(['bankCardType'])
+            ->where('user_id', $userId)
+            ->where('bank_card_type_id', $cardTypeID)
+            ->where('id',$request->card_id)
+            ->get();
+
+        if($bankCard->count() > 0){
+            return response([
+                "status"=> 201,
+                "message"=>"success",
+                "data"=>$bankCard
+            ]);
+        }else{
+            return response([
+                "status"=> 201,
+                "message"=>"success",
+                "data"=>"No Cards Found for user {$userName}"
+            ]);
+        }
     }
 
     public function createNewCard(Request $request)
@@ -115,10 +140,14 @@ class BankCardsController extends Controller
     }
 
     public function getCardTypeSlug(){
-        $cardTypeSlug = request()->segment(count(request()->segments()));
-        $cardTypeSlugSingular = substr($cardTypeSlug, 0, -1);
+        $segments = request()->segments();
+        $cardTypeSlug = isset($segments[count($segments) - 2]) ? $segments[count($segments) - 2] : null;
 
-        return $cardTypeSlugSingular;
+        if (!$cardTypeSlug) {
+            return null;
+        }
+
+        return substr($cardTypeSlug, -1) === 's' ? substr($cardTypeSlug, 0, -1) : $cardTypeSlug;
     }
     /**
      * Display a listing of the resource.
