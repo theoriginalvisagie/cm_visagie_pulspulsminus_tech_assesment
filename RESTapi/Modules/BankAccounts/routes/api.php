@@ -10,6 +10,8 @@ Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
     //  List a bank account owned by the authenticated customer.
     Route::get('accounts/{id}', [BankAccountsController::class, 'getBankAccountWithId'])->name('bankcards.getBankAccountWithId');
 
+    // POST REQUESTS
+    // Create a new bank account for the authenticated customer.
     Route::post('accounts/', [BankAccountsController::class, 'createNewUserBankAccount'])->name('bankcards.createNewUserBankAccount');
 
 });

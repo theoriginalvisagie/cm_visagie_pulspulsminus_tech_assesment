@@ -45,8 +45,9 @@ return [
                  */
                 'annotations' => [
                     base_path('app'),
-                    base_path('Modules/BankCards/Http/Controllers'), // add this 👈
-                    base_path('Modules/Users/Http/Controllers'),     // add others as needed
+                    base_path('Modules/BankCards/Http/Controllers'),
+                    base_path('Modules/Users/Http/Controllers'),
+                    base_path('Modules/BankAccounts/Http/Controllers'),
                 ],
             ],
         ],
