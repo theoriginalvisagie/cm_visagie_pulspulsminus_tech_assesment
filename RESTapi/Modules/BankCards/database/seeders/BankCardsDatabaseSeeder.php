@@ -11,6 +11,6 @@ class BankCardsDatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // $this->call([]);
+         $this->call(BankCardTypesSeeder::class);
     }
 }
