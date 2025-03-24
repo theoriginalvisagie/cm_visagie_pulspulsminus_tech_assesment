@@ -22,7 +22,9 @@ All Migrations for a module are contained in `RESTapi/Modules/<module-name>/data
 All Seeder are contained in `RESTapi/Modules/<module-name>/Http/database/seeders`
 
 # API Documentation:
-The documentation for all the endpoints can be found at `http://localhost:8084/api/documentation`
+The documentation for all the endpoints can be found at `http://localhost:8084/api/documentation` once containers are up
+and running.
+
 # Setup:
 You need to build the docker container before use, make sure you are in the root directory and then run the following commad:
 ```bash
