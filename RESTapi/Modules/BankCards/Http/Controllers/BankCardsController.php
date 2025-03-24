@@ -176,50 +176,37 @@ class BankCardsController extends Controller
             'card' => $bankCard,
         ], 200);
     }
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        return view('bankcards::index');
+
+    public function destroy(Request $request, $id) {
+        $user = $request->user();
+        $userId = $user->id;
+        $userName = "{$user->name} {$user->surname}";
+        $cardTypeSlug = $this->getCardTypeSlug();
+
+        $cardType = BankCardTypes::where('slug', $cardTypeSlug)->first();
+
+        if (!$cardType) {
+            return response()->json([
+                'message' => 'Card type not found.',
+            ], 404);
+        }
+
+        $card = BankCards::where('id', $id)
+            ->where('user_id', $userId)
+            ->where('bank_card_type_id', $cardType->id)
+            ->first();
+
+        if (!$card) {
+            return response()->json([
+                'message' => "Card not found or access denied.",
+            ], 404);
+        }
+
+        $cardName = $card->bank_card_name;
+        $card->delete();
+
+        return response()->json([
+            'message' => "Card '{$cardName}' deleted successfully by {$userName}.",
+        ], 200);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('bankcards::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request) {}
-
-    /**
-     * Show the specified resource.
-     */
-    public function show($id)
-    {
-        return view('bankcards::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        return view('bankcards::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id) {}
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id) {}
 }

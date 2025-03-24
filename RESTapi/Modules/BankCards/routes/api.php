@@ -16,9 +16,9 @@ Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
 
     // PUT REQUESTS
     // Update an existing debit card.
-    Route::put('debit-cards/{id}', [BankCardsController::class, 'updateBankCard'])->name('bankcards.updateBankCard');
-//
-//    // DELETE REQUESTS
-      // Delete a debit card.
-//    Route::delete('debit-cards/{id}', BankCardsController::class)->name('bankcards');
+    Route::put('debit-cards/{id}', [BankCardsController::class, 'updateBankCard'])->name('destroy.updateBankCard');
+
+    // DELETE REQUESTS
+    // Delete a debit card.
+    Route::delete('debit-cards/{id}', [BankCardsController::class, 'destroy'])->name('destroy.destroy');
 });
