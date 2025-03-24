@@ -1,4 +1,4 @@
-# ++- Laravel Tech Assesment.
+# ++- Laravel Tech Assessment.
 ## Christiaan Visagie | visagiechristiaan40@gmail.com
 
 # Folder Structure:
