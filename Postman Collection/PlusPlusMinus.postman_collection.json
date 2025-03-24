@@ -1,0 +1,495 @@
+{
+	"info": {
+		"_postman_id": "c1d1f67f-9d78-46ed-a3e0-387064d7561f",
+		"name": "PlusPlusMinus",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23683707"
+	},
+	"item": [
+		{
+			"name": "Bank Cards",
+			"item": [
+				{
+					"name": "Get All User Debit Cards",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Bearer_collection}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}{{api_url}}v1/debit-cards",
+							"host": [
+								"{{local_url}}{{api_url}}v1"
+							],
+							"path": [
+								"debit-cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Specific Card Details",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Bearer_collection}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}{{api_url}}v1/debit-cards/2",
+							"host": [
+								"{{local_url}}{{api_url}}v1"
+							],
+							"path": [
+								"debit-cards",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update card",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Bearer_collection}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bank_card_name\":\"NEw Name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}{{api_url}}v1/debit-cards/1",
+							"host": [
+								"{{local_url}}{{api_url}}v1"
+							],
+							"path": [
+								"debit-cards",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Bank Card",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Bearer_collection}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bank_card_name\":\"NEw Name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}{{api_url}}v1/debit-cards/3",
+							"host": [
+								"{{local_url}}{{api_url}}v1"
+							],
+							"path": [
+								"debit-cards",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Card",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Bearer_collection}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bank_card_name\":\"My New bank Card for account\",\n    \"account_id\":\"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}{{api_url}}v1/debit-cards",
+							"host": [
+								"{{local_url}}{{api_url}}v1"
+							],
+							"path": [
+								"debit-cards"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json(); // Parse the JSON response",
+									"if (response.token ) {",
+									"    pm.collectionVariables.set(\"Bearer_collection\", `Bearer ${response.token}`); // Save the token for the next requests",
+									"    console.log(\"Token saved:\", response.token); // Log the value for debugging",
+									"} else {",
+									"    console.error(\"Token Could not be set.\");",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"mail@mailssss.com\",\n    \"password\": \"Camel1!ghts\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}{{api_url}}login-user",
+							"host": [
+								"{{local_url}}{{api_url}}login-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"John\",\n    \"surname\":\"Doe\",\n    \"email\": \"mail@mailssssss.com\",\n    \"password\": \"Camel1!ghts\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}{{api_url}}register-user",
+							"host": [
+								"{{local_url}}{{api_url}}register-user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bank Accounts",
+			"item": [
+				{
+					"name": "Get All Accounts For User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Bearer_collection}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}{{api_url}}v1/accounts",
+							"host": [
+								"{{local_url}}{{api_url}}v1"
+							],
+							"path": [
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Account With ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Bearer_collection}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}{{api_url}}v1/accounts/1",
+							"host": [
+								"{{local_url}}{{api_url}}v1"
+							],
+							"path": [
+								"accounts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Bank Account",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Bearer_collection}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"account_name\":\"New Account\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}{{api_url}}v1/accounts",
+							"host": [
+								"{{local_url}}{{api_url}}v1"
+							],
+							"path": [
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transactions",
+			"item": [
+				{
+					"name": "New Transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Bearer_collection}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"card_id\":\"10\",\n    \"account_id\":\"1\",\n    \"amount\":\"1500.00\",\n    \"transaction_type_id\":\"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}{{api_url}}v1/debit-card-transactions",
+							"host": [
+								"{{local_url}}{{api_url}}v1"
+							],
+							"path": [
+								"debit-card-transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Transactions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Bearer_collection}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}{{api_url}}v1/debit-card-transactions",
+							"host": [
+								"{{local_url}}{{api_url}}v1"
+							],
+							"path": [
+								"debit-card-transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Transaction By ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Bearer_collection}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}{{api_url}}v1/debit-card-transactions/1",
+							"host": [
+								"{{local_url}}{{api_url}}v1"
+							],
+							"path": [
+								"debit-card-transactions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "local_url",
+			"value": "http://localhost:8084/",
+			"type": "string"
+		},
+		{
+			"key": "api_url",
+			"value": "api/",
+			"type": "string"
+		},
+		{
+			"key": "Bearer",
+			"value": ""
+		},
+		{
+			"key": "Bearer_collection",
+			"value": ""
+		}
+	]
+}
