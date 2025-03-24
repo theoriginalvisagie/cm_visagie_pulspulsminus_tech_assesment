@@ -4,13 +4,45 @@ namespace Modules\Users\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Sanctum\HasApiTokens;
+use Modules\Users\Entities\Users;
 
 class UsersController extends Controller
 {
 
-    public function login(){
-        return "HI";
+    /**
+     * Log in a user and issue a token.
+     */
+    public function loginUser(Request $request)
+    {
+        if (in_array(HasApiTokens::class, class_uses_recursive(Users::class))) {
+            $request->validate([
+                'email' => 'required|string|email',
+                'password' => 'required|string',
+            ]);
+
+            if (!Auth::attempt($request->only('email', 'password'))) {
+                return response()->json(['message' => 'Invalid credentials'], 401);
+            }
+
+            $user = Users::where('email',$request->email)->first();
+            if ($user) {
+                $token = $user->createToken('Token Name',["*"],now()->addDay())->plainTextToken;
+
+                return response()->json([
+                    'message' => 'Login successful',
+                    'token' => $token,
+                    'user' => $user,
+                ], 200);
+            } else {
+                return response()->json(['message' => 'User not found'], 404);
+            }
+        } else {
+            return response()->json(['message' => 'HasApiTokens is not applied'], 500);
+        }
     }
 
     public function registerUser(Request $request)
@@ -34,7 +66,7 @@ class UsersController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $user = User::create([
+        $user = Users::create([
             'name' => $request->name,
             'surname' => $request->surname,
             'email' => $request->email,
