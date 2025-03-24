@@ -8,6 +8,19 @@ There are two folders:
 
 The Docker yaml is contained in `docker-compose.yml`.
 
+Laravel has been configure to work with modules using Nwidart.
+
+All Modules are contained in `RESTapi/Modules`:
+- BankCards
+- Users
+
+All Unit tests are contained in `RESTapi/Modules/<module-name>/tests/Unit`
+All Routes are contained in `RESTapi/Modules/<module-name>/routes/api.php`
+All Models are contained in `RESTapi/Modules/<module-name>/Entities`
+All Controllers are contained in `RESTapi/Modules/<module-name>/Http/Controllers`
+All Migrations for a module are contained in `RESTapi/Modules/<module-name>/database/migrations`
+All Seeder are contained in `RESTapi/Modules/<module-name>/Http/database/seeders`
+
 # Setup:
 You need to build the docker container before use, make sure you are in the root directory and then run the following commad:
 ```bash
