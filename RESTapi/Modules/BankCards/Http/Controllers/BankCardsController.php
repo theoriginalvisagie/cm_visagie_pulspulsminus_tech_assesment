@@ -37,7 +37,7 @@ class BankCardsController extends Controller
         }
     }
 
-    public function getUserCardWithId(Request $request){
+    public function getUserCardWithId(Request $request, $id){
         $user = $request->user();
         $userId = $user->id;
         $userName = "{$user->name} {$user->surname}";
@@ -48,7 +48,7 @@ class BankCardsController extends Controller
         $bankCard = BankCards::with(['bankCardType'])
             ->where('user_id', $userId)
             ->where('bank_card_type_id', $cardTypeID)
-            ->where('id',$request->card_id)
+            ->where('id',$id)
             ->get();
 
         if($bankCard->count() > 0){
@@ -140,13 +140,14 @@ class BankCardsController extends Controller
 
     public function getCardTypeSlug(){
         $segments = request()->segments();
-        $cardTypeSlug = isset($segments[count($segments) - 2]) ? $segments[count($segments) - 2] : null;
 
-        if (!$cardTypeSlug) {
-            return null;
-        }
+        $last = end($segments);
+        $isId = is_numeric($last);
+        $cardTypeSlug = $isId ? $segments[count($segments) - 2] : $last;
 
-        return substr($cardTypeSlug, -1) === 's' ? substr($cardTypeSlug, 0, -1) : $cardTypeSlug;
+        return substr($cardTypeSlug, -1) === 's'
+            ? substr($cardTypeSlug, 0, -1)
+            : $cardTypeSlug;
     }
 
     public function updateBankCard(Request $request, $id){
