@@ -14,7 +14,59 @@ class UsersController extends Controller
 {
 
     /**
-     * Log in a user and issue a token.
+     * @OA\Post(
+     *     path="/api/login-user",
+     *     tags={"Authentication"},
+     *     summary="Login user and generate access token",
+     *     description="Logs in a user and returns a Sanctum access token along with user details.",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"email","password"},
+     *             @OA\Property(property="email", type="string", format="email", example="mail@mailssss.com"),
+     *             @OA\Property(property="password", type="string", format="password", example="Camel1!ghts")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Login successful",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Login successful"),
+     *             @OA\Property(property="token", type="string", example="10|6FbGXDZWuX2y39vM31uXVtGsBux45ihGmdqXTXFW14f96f11"),
+     *             @OA\Property(property="user", type="object",
+     *                 @OA\Property(property="id", type="integer", example=2),
+     *                 @OA\Property(property="name", type="string", example="John"),
+     *                 @OA\Property(property="surname", type="string", example="Doe"),
+     *                 @OA\Property(property="email", type="string", example="mail@mailssss.com"),
+     *                 @OA\Property(property="email_verified_at", type="string", format="nullable", example=null),
+     *                 @OA\Property(property="created_at", type="string", format="date-time", example="2025-03-24T12:05:17.000000Z"),
+     *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2025-03-24T13:22:03.000000Z"),
+     *                 @OA\Property(property="deleted_at", type="string", format="nullable", example=null)
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Invalid credentials",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Invalid credentials")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="User not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="User not found")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="HasApiTokens not applied",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="HasApiTokens is not applied")
+     *         )
+     *     )
+     * )
      */
     public function loginUser(Request $request)
     {
@@ -45,6 +97,49 @@ class UsersController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/register-user",
+     *     tags={"Authentication"},
+     *     summary="Register a new user",
+     *     description="Registers a new user and returns the created user data.",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"name","surname","email","password"},
+     *             @OA\Property(property="name", type="string", example="John"),
+     *             @OA\Property(property="surname", type="string", example="Doe"),
+     *             @OA\Property(property="email", type="string", format="email", example="mail@mailssss.com"),
+     *             @OA\Property(property="password", type="string", format="password", example="Camel1!ghts")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="User registered successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="User registered successfully"),
+     *             @OA\Property(property="user", type="object",
+     *                 @OA\Property(property="id", type="integer", example=4),
+     *                 @OA\Property(property="name", type="string", example="John"),
+     *                 @OA\Property(property="surname", type="string", example="Doe"),
+     *                 @OA\Property(property="email", type="string", example="mail@mailssssss.com"),
+     *                 @OA\Property(property="created_at", type="string", format="date-time", example="2025-03-24T14:15:25.000000Z"),
+     *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2025-03-24T14:15:25.000000Z")
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation errors",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="The given data was invalid."),
+     *             @OA\Property(property="errors", type="object",
+     *                 @OA\Property(property="email", type="array", @OA\Items(type="string", example="The email has already been taken."))
+     *             )
+     *         )
+     *     )
+     * )
+     */
     public function registerUser(Request $request)
     {
         $validator = Validator::make($request->all(), [
