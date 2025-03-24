@@ -10,8 +10,35 @@ use Modules\BankCards\Entities\BankCardTypes;
 class BankCardsController extends Controller
 {
 
-    public function getAllUserCards($id){
-//        $userCards =
+    public function getAllUserCards(Request $request){
+        $user = $request->user();
+        $userId = $user->id;
+        $userName = "{$user->name} {$user->surname}";
+        $cardTypeSlug = $this->getCardTypeSlug();
+        $cardTypeID = BankCardTypes::where('slug', $cardTypeSlug)->first()->id;
+
+        $bankCards = BankCards::with(['bankCardType'])
+            ->where('user_id', $userId)
+            ->where('bank_card_type_id', $cardTypeID)
+            ->get();
+
+        if($bankCards->count() > 0){
+            return response([
+                "status"=> 201,
+                "message"=>"success",
+                "data"=>$bankCards
+            ]);
+        }else{
+            return response([
+                "status"=> 201,
+                "message"=>"success",
+                "data"=>"No Cards Found for user {$userName}"
+            ]);
+        }
+    }
+
+    public function getUserCardWithId(Request $request){
+
     }
 
     public function createNewCard(Request $request)
@@ -19,10 +46,9 @@ class BankCardsController extends Controller
         $user = $request->user();
         $userId = $user->id;
         $cardName = $request->get('bank_card_name');
-        $cardTypeSlug = request()->segment(count(request()->segments()));
-        $cardTypeSlugSingular = substr($cardTypeSlug, 0, -1);
+        $cardTypeSlug = $this->getCardTypeSlug();
 
-        $cardTypeID = BankCardTypes::where('slug', $cardTypeSlugSingular)->first()->id;
+        $cardTypeID = BankCardTypes::where('slug', $cardTypeSlug)->first()->id;
 
         $cardDetails = $this->createCardDetails();
 
@@ -86,6 +112,13 @@ class BankCardsController extends Controller
 
         return $cardDetails;
 
+    }
+
+    public function getCardTypeSlug(){
+        $cardTypeSlug = request()->segment(count(request()->segments()));
+        $cardTypeSlugSingular = substr($cardTypeSlug, 0, -1);
+
+        return $cardTypeSlugSingular;
     }
     /**
      * Display a listing of the resource.
